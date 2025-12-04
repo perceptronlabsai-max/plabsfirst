@@ -1,11 +1,1010 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>My First Website</title>
+  <meta charset="UTF-8" />
+  <title>Perceptron Labs – AI Voice Agents</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Perceptron Labs builds AI phone agents that answer calls, schedule appointments, and qualify leads 24/7." />
+  <!-- Optional Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-alt: #050b18;
+      --accent: #3ef2ff;
+      --accent-soft: rgba(62, 242, 255, 0.2);
+      --accent-2: #8b5cff;
+      --text: #f5f5ff;
+      --muted: #a0a3c2;
+      --card-bg: rgba(10, 18, 40, 0.85);
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --radius-xl: 22px;
+      --shadow-soft: 0 24px 80px rgba(0, 0, 0, 0.65);
+      --max-width: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #111827 0, var(--bg) 45%, #020617 100%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .noise {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      opacity: 0.04;
+      mix-blend-mode: soft-light;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+      z-index: -1;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border-subtle);
+      backdrop-filter: blur(18px);
+      background: radial-gradient(circle at top left, rgba(62, 242, 255, 0.06), rgba(10, 16, 40, 0.94));
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .nav-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: conic-gradient(from 180deg, var(--accent), var(--accent-2), #22c55e, var(--accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 28px rgba(62, 242, 255, 0.65);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-mark::after {
+      content: "";
+      position: absolute;
+      inset: 18%;
+      border-radius: inherit;
+      border: 1px solid rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(6px);
+      background: radial-gradient(circle at 20% 0, rgba(15, 23, 42, 0.5), rgba(15, 23, 42, 0.9));
+    }
+
+    .logo-mark span {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      z-index: 2;
+      color: #e5faff;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo-title {
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+
+    .logo-subtitle {
+      font-size: 11px;
+      color: var(--muted);
+      opacity: 0.8;
+    }
+
+    .nav-cta {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .nav-link {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: all 0.18s ease-out;
+    }
+
+    .nav-link:hover {
+      color: var(--text);
+      border-color: var(--accent-soft);
+      background: rgba(15, 23, 42, 0.6);
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: none;
+      padding: 8px 18px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      transition: transform 0.14s ease-out, box-shadow 0.14s ease-out, background 0.14s ease-out;
+    }
+
+    .btn-primary {
+      background: radial-gradient(circle at 0 0, var(--accent) 0, var(--accent-2) 40%, #1d4ed8 100%);
+      color: #020617;
+      box-shadow: 0 10px 35px rgba(59, 130, 246, 0.45);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px) scale(1.01);
+      box-shadow: 0 18px 45px rgba(59, 130, 246, 0.6);
+    }
+
+    .btn-outline {
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--muted);
+      background: transparent;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent-soft);
+      background: rgba(15, 23, 42, 0.85);
+      color: var(--text);
+    }
+
+    main {
+      flex: 1;
+    }
+
+    .shell {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+
+    /* HERO */
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3.1fr) minmax(0, 3fr);
+      gap: 28px;
+      align-items: center;
+      padding-block: 24px 36px;
+    }
+
+    @media (max-width: 880px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px 4px 4px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 0 0, rgba(62, 242, 255, 0.18), rgba(15, 23, 42, 0.92));
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .eyebrow-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 0, var(--accent), var(--accent-2));
+      position: relative;
+      box-shadow: 0 0 18px rgba(62, 242, 255, 0.8);
+    }
+
+    .eyebrow-dot::after {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      border-radius: inherit;
+      background: radial-gradient(circle at 30% 0, #0b1120, #020617);
+    }
+
+    .hero-title {
+      font-size: clamp(2.3rem, 3vw + 1rem, 3.25rem);
+      line-height: 1.07;
+      margin-bottom: 12px;
+    }
+
+    .hero-title span {
+      background: linear-gradient(120deg, var(--accent), var(--accent-2), #4ade80);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 32rem;
+      margin-bottom: 22px;
+    }
+
+    .hero-subtitle b {
+      color: #e5e7ff;
+      font-weight: 500;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .hero-caption {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .hero-caption strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .hero-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 16px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .dot-sep {
+      width: 4px;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.6);
+    }
+
+    .hero-right {
+      position: relative;
+    }
+
+    .orb {
+      position: absolute;
+      inset: 16% -8%;
+      filter: blur(35px);
+      background: radial-gradient(circle at 0 0, rgba(62, 242, 255, 0.5), transparent 55%),
+                  radial-gradient(circle at 100% 0, rgba(139, 92, 246, 0.5), transparent 55%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .hero-panel {
+      position: relative;
+      border-radius: calc(var(--radius-xl) + 4px);
+      background: radial-gradient(circle at 0 0, rgba(62, 242, 255, 0.21), rgba(15, 23, 42, 0.95));
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: var(--shadow-soft);
+      padding: 20px 18px 18px;
+      overflow: hidden;
+    }
+
+    .hero-panel::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background-image:
+        radial-gradient(circle at 20% 0, rgba(62, 242, 255, 0.22), transparent 62%),
+        radial-gradient(circle at 86% 10%, rgba(139, 92, 246, 0.26), transparent 60%);
+      opacity: 0.8;
+      mix-blend-mode: screen;
+    }
+
+    .hero-panel-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .panel-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: rgba(226, 232, 240, 0.85);
+    }
+
+    .status-pill {
+      border-radius: 999px;
+      padding: 4px 9px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 16px rgba(34, 197, 94, 0.9);
+    }
+
+    .wave-card {
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: radial-gradient(circle at 0 0, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.95));
+      padding: 14px 14px 12px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .wave-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 8px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .wave-label-row b {
+      color: #e5e7ff;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .wave-visual {
+      position: relative;
+      height: 120px;
+      margin-top: 4px;
+    }
+
+    .wave-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(148, 163, 184, 0.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.12) 1px, transparent 1px);
+      background-size: 18px 18px;
+      opacity: 0.55;
+    }
+
+    .wave-path {
+      position: absolute;
+      inset: 4px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(62, 242, 255, 0.4), rgba(139, 92, 246, 0.7));
+      opacity: 0.85;
+      mask-image: radial-gradient(circle at 0 50%, transparent 0, transparent 6px, black 20px),
+                  repeating-linear-gradient(90deg, transparent 0 4px, black 4px 6px);
+      transform-origin: center;
+      transform: skewX(-10deg);
+      filter: drop-shadow(0 0 18px rgba(59, 130, 246, 0.8));
+    }
+
+    .wave-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .wave-pill {
+      border-radius: 999px;
+      padding: 3px 8px;
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.88);
+    }
+
+    .wave-pill span:last-child {
+      color: #e5e7ff;
+    }
+
+    .stat-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 8px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .stat-chip {
+      flex: 1 1 120px;
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.9);
+      padding: 8px 10px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .stat-chip b {
+      display: block;
+      font-size: 13px;
+      color: #e5e7ff;
+      margin-bottom: 2px;
+    }
+
+    .mini-tagline {
+      font-size: 10px;
+      color: rgba(209, 213, 219, 0.85);
+    }
+
+    /* Sections */
+
+    .section {
+      margin-top: 40px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      font-size: 18px;
+    }
+
+    .section-kicker {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+
+    .section-sub {
+      font-size: 13px;
+      color: var(--muted);
+      max-width: 420px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    @media (max-width: 880px) {
+      .grid-3 {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(148, 163, 184, 0.28);
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.85));
+      padding: 16px 15px 15px;
+      box-shadow: 0 12px 35px rgba(15, 23, 42, 0.8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -30%;
+      background: radial-gradient(circle at 0 0, rgba(62, 242, 255, 0.15), transparent 55%);
+      opacity: 0.4;
+      mix-blend-mode: screen;
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 0 0, rgba(62, 242, 255, 0.45), rgba(15, 23, 42, 1));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      font-size: 16px;
+      box-shadow: 0 0 16px rgba(62, 242, 255, 0.65);
+    }
+
+    .card-title {
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .card-body {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .pill {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      padding: 3px 8px;
+      font-size: 11px;
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.92);
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: minmax(0, 2.5fr) minmax(0, 2.5fr);
+      gap: 18px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 880px) {
+      .steps {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .step-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px;
+      align-items: start;
+    }
+
+    .step-index {
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 0 0, #22c55e, #16a34a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      box-shadow: 0 0 12px rgba(34, 197, 94, 0.7);
+    }
+
+    .step-title {
+      color: #e5e7ff;
+      font-weight: 500;
+      margin-bottom: 1px;
+    }
+
+    .step-copy {
+      font-size: 12px;
+    }
+
+    .mini-panel {
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(148, 163, 184, 0.32);
+      background: radial-gradient(circle at 0 0, rgba(62, 242, 255, 0.18), rgba(15, 23, 42, 0.96));
+      padding: 16px 15px 14px;
+      font-size: 13px;
+      color: var(--muted);
+      box-shadow: 0 12px 35px rgba(15, 23, 42, 0.9);
+    }
+
+    .mini-panel b {
+      color: #e5e7ff;
+    }
+
+    .mini-panel small {
+      display: block;
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.9);
+      margin-top: 6px;
+    }
+
+    footer {
+      border-top: 1px solid rgba(30, 64, 175, 0.65);
+      background: radial-gradient(circle at 0 0, rgba(37, 99, 235, 0.22), rgba(15, 23, 42, 0.98));
+      margin-top: auto;
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 16px 20px 20px;
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .footer-link {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .footer-link:hover {
+      color: var(--accent);
+    }
+  </style>
 </head>
 <body>
-    <h1>Hello World!</h1>
-    <p>This is my very first website created with HTML.</p>
+  <div class="noise"></div>
+
+  <header>
+    <div class="nav-inner">
+      <div class="logo">
+        <div class="logo-mark">
+          <span>PL</span>
+        </div>
+        <div class="logo-text">
+          <div class="logo-title">Perceptron Labs</div>
+          <div class="logo-subtitle">AI Voice Automation</div>
+        </div>
+      </div>
+
+      <div class="nav-cta">
+        <a href="#how" class="nav-link">How it works</a>
+        <a href="#features" class="nav-link">Use cases</a>
+        <a href="#contact" class="nav-link">Contact</a>
+        <button class="btn btn-primary">
+          Book a demo
+          <span>↗</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="shell hero">
+      <div>
+        <div class="eyebrow">
+          <div class="eyebrow-dot"></div>
+          <span>AI phone agents for real businesses</span>
+        </div>
+
+        <h1 class="hero-title">
+          Turn missed calls into <span>booked customers</span>.
+        </h1>
+
+        <p class="hero-subtitle">
+          Perceptron Labs deploys <b>AI voice agents</b> that answer calls,
+          qualify leads and schedule appointments <b>24/7</b> so your team never
+          loses revenue to voicemail again.
+        </p>
+
+        <div class="hero-cta-row">
+          <button class="btn btn-primary">
+            Get started in 7 days
+          </button>
+          <button class="btn btn-outline">
+            Listen to a sample call
+          </button>
+        </div>
+
+        <p class="hero-caption">
+          <strong>Zero code.</strong> We integrate with your calendar, CRM and
+          phone system for you.
+        </p>
+
+        <div class="hero-meta-row">
+          <span>⚡ Avg. response time &lt; 1.2 seconds</span>
+          <span class="dot-sep"></span>
+          <span>🔒 SOC2-ready infrastructure</span>
+          <span class="dot-sep"></span>
+          <span>🌎 Voices in 40+ languages</span>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="orb"></div>
+        <div class="hero-panel">
+          <div class="hero-panel-inner">
+            <div class="panel-header">
+              <div>
+                <div class="panel-title">Live call stream</div>
+                <div class="mini-tagline">Your AI agent, handling real callers.</div>
+              </div>
+              <div class="status-pill">
+                <span class="status-dot"></span>
+                <span>Online</span>
+              </div>
+            </div>
+
+            <div class="wave-card">
+              <div class="wave-label-row">
+                <div>
+                  <span>Caller</span>
+                  <br />
+                  <b>“New Patient – Dental”</b>
+                </div>
+                <div>
+                  <span>Outcome</span>
+                  <br />
+                  <b>Consult booked · Tue 3:30 PM</b>
+                </div>
+              </div>
+
+              <div class="wave-visual">
+                <div class="wave-grid"></div>
+                <div class="wave-path"></div>
+              </div>
+
+              <div class="wave-footer">
+                <div class="wave-pill">
+                  <span>Latency</span>
+                  <span>412 ms</span>
+                </div>
+                <span>Transcribing · Understanding · Responding</span>
+              </div>
+            </div>
+
+            <div class="stat-row">
+              <div class="stat-chip">
+                <b>+37%</b>
+                Callers converted vs. voicemail-only.
+              </div>
+              <div class="stat-chip">
+                <b>92%</b>
+                Human satisfaction in blind tests.
+              </div>
+            </div>
+
+            <p class="mini-panel">
+              “It feels like talking to a real receptionist. Patients book at
+              midnight and on weekends without us lifting a finger.”
+              <br />
+              <small>— Dr. Riley Carter, Midtown Dental Group</small>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell section" id="features">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Why teams plug us in</div>
+          <h2 class="section-title">Built for real-world operations.</h2>
+        </div>
+        <p class="section-sub">
+          Designed for practices, agencies and service businesses that live and die
+          by the phones: dental, med-spa, HVAC, law firms and beyond.
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <div class="card-inner">
+            <div class="card-icon">🎧</div>
+            <h3 class="card-title">Natural, multi-turn conversations</h3>
+            <p class="card-body">
+              Our agents remember context, handle interruptions and clarify details,
+              just like your best receptionist would on their best day.
+            </p>
+            <div class="pill-row">
+              <span class="pill">Overtalk &amp; barge-in support</span>
+              <span class="pill">Dynamic scripts</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-inner">
+            <div class="card-icon">📅</div>
+            <h3 class="card-title">Calendar &amp; CRM integration</h3>
+            <p class="card-body">
+              We slot appointments into your existing calendar and push caller
+              data into your CRM, so your team starts the day with a full schedule.
+            </p>
+            <div class="pill-row">
+              <span class="pill">Google / Outlook / iCal</span>
+              <span class="pill">HubSpot · Pipedrive</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-inner">
+            <div class="card-icon">🛡️</div>
+            <h3 class="card-title">Secure by design</h3>
+            <p class="card-body">
+              Data is encrypted in transit and at rest, with region-locked storage
+              and audit logs available for compliant industries.
+            </p>
+            <div class="pill-row">
+              <span class="pill">Role-based access</span>
+              <span class="pill">Audit trails</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="shell section" id="how">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Onboarded in days</div>
+          <h2 class="section-title">From “idea” to live agent in 3 steps.</h2>
+        </div>
+        <p class="section-sub">
+          No engineering team required. You share how your business runs;
+          we translate that into a production-ready AI receptionist.
+        </p>
+      </div>
+
+      <div class="steps">
+        <div>
+          <ol class="step-list">
+            <li class="step">
+              <div class="step-index">1</div>
+              <div>
+                <div class="step-title">Design your call flows</div>
+                <p class="step-copy">
+                  Together, we map how you want calls handled: new leads, existing
+                  customers, emergencies, wrong numbers and everything in between.
+                </p>
+              </div>
+            </li>
+            <li class="step">
+              <div class="step-index">2</div>
+              <div>
+                <div class="step-title">Connect your tools</div>
+                <p class="step-copy">
+                  We securely connect to your phone provider, calendars and CRM,
+                  so the agent can see availability and log outcomes.
+                </p>
+              </div>
+            </li>
+            <li class="step">
+              <div class="step-index">3</div>
+              <div>
+                <div class="step-title">Go live &amp; iterate</div>
+                <p class="step-copy">
+                  You monitor every conversation in a dashboard, approve responses
+                  and refine behavior with simple toggles, not code.
+                </p>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <div class="mini-panel">
+          <b>White-glove onboarding.</b>
+          <p>
+            We treat each deployment like a mini-consulting project. You get a
+            dedicated implementation engineer who configures flows, tests edge
+            cases and keeps an eye on quality in the first 30 days.
+          </p>
+          <small>
+            Most teams see a fully-operational agent handling live calls within
+            the first week.
+          </small>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell section" id="contact">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Let’s talk</div>
+          <h2 class="section-title">Ready to test an AI receptionist?</h2>
+        </div>
+        <p class="section-sub">
+          Share a little about your call volume and tools, and we’ll set up a
+          tailored pilot. No long-term contracts. Start with a single phone line.
+        </p>
+      </div>
+
+      <div class="steps">
+        <div class="mini-panel">
+          <b>Book a 20-minute intro call.</b>
+          <p>
+            Tell us about your business, your current call flow and where you’re
+            losing time or revenue. We’ll show you exactly how an AI agent would
+            plug in.
+          </p>
+          <small>
+            Prefer email? Reach us at
+            <b>hello@perceptronlabs.ai</b> (change this to your real address).
+          </small>
+        </div>
+
+        <div class="mini-panel">
+          <b>Pilot first. Scale later.</b>
+          <p>
+            Start with one location or one department. Once you’re confident the
+            AI is performing, we can roll out to all locations and time zones.
+          </p>
+          <small>
+            Pricing is simple: a flat platform fee plus usage-based minutes. No
+            hidden support or “seat” charges.
+          </small>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>© <span id="year"></span> Perceptron Labs. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="#features" class="footer-link">Product</a>
+        <a href="#how" class="footer-link">How it works</a>
+        <a href="#contact" class="footer-link">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Simple: keep footer year up to date
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
