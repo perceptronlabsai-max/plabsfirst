@@ -98,24 +98,26 @@
     }
 
     button {
-      width: 100%;
-      padding: 14px;
-      border-radius: 999px;
-      border: none;
-      background: radial-gradient(circle at 0 0, #3ef2ff 0, #8b5cff 40%, #1d4ed8 100%);
-      color: #020617;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 12px 35px rgba(59, 130, 246, 0.55);
-      transition: transform 0.1s ease, box-shadow 0.1s ease, filter 0.1s ease;
-    }
+  width: 100%;
+  padding: 14px;
+  border-radius: 999px;
+  border: none;
+  background: radial-gradient(circle at 0 0, #3ef2ff 0, #8b5cff 40%, #1d4ed8 100%);
+  color: #020617;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: none; /* Remove default glow */
+  transition: transform 0.1s ease, box-shadow 0.1s ease, filter 0.1s ease;
+}
+
 
     button:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 18px 45px rgba(59, 130, 246, 0.7);
-      filter: brightness(1.03);
-    }
+  transform: translateY(-1px);
+  box-shadow: 0 0px 15px rgba(59, 130, 246, 0.7); /* Glow only on hover */
+  filter: brightness(1.03);
+}
+
 
     button:active {
       transform: translateY(1px);
