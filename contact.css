@@ -27,7 +27,6 @@ body.contact-page {
 }
 
 /* background noise */
-
 .noise {
   pointer-events: none;
   position: fixed;
