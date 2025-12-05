@@ -13,41 +13,94 @@
 </head>
 
 <body>
-  <div class="page">
-    <div class="contact-container">
-      <h1>Contact Us</h1>
-      <p class="subtitle">
-        Fill out the form below and our team will reach out shortly.
-      </p>
+  <header>
+    <div class="nav-inner">
+      <div class="logo">
+        <div class="logo-mark">
+          <span>PL</span>
+        </div>
+        <div class="logo-text">
+          <div class="logo-title">Perceptron Labs</div>
+          <div class="logo-subtitle">AI Voice Automation</div>
+        </div>
+      </div>
 
-      <form
-        class="contact-form"
-        action="https://formspree.io/f/myzrpjdr"
-        method="POST"
-      >
-        <label for="name">Your Name</label>
-        <input id="name" type="text" name="name" autocomplete="name" required />
-
-        <label for="email">Email Address</label>
-        <input id="email" type="email" name="email" autocomplete="email" required />
-
-        <label for="phone">Phone Number</label>
-        <input id="phone" type="tel" name="phone" autocomplete="tel" />
-
-        <label for="business">Business Name</label>
-        <input id="business" type="text" name="business" />
-
-        <label for="details">Additional Information</label>
-        <textarea
-          id="details"
-          name="details"
-          placeholder="Tell us about your business, goals, or ideal use case..."
-        ></textarea>
-
-        <button type="submit" class="contact-submit">
-          Submit Form
+      <div class="nav-cta">
+        <a href="#how" class="nav-link">How it works</a>
+        <a href="#features" class="nav-link">Use cases</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <button class="btn btn-primary">
+          Book a demo
+          <span>↗</span>
         </button>
-      </form>
+      </div>
+    </div>
+  </header>
+  <div class="page">
+    
+    <div class="container contact-container">
+      <div class="contact-bubble">
+
+        <!-- Glow / pill background -->
+        <div class="contact-bubble-bg"></div>
+
+        <!-- Foreground content -->
+        <div class="contact-bubble-inner">
+          <div class="bubble-header">
+            <div>
+              <div class="bubble-kicker">Perceptron Labs</div>
+              <h1>Contact Us</h1>
+              <p class="subtitle">
+                Share a few details and we’ll follow up with next steps for your AI phone agent.
+              </p>
+            </div>
+
+            <div class="status-pill">
+              <span class="status-dot"></span>
+              <span>Online</span>
+            </div>
+          </div>
+
+          <form
+            class="contact-form"
+            action="https://formspree.io/f/myzrpjdr"
+            method="POST"
+          >
+            <div class="form-grid">
+              <div class="field">
+                <label for="name">Your Name</label>
+                <input id="name" type="text" name="name" autocomplete="name" required />
+              </div>
+
+              <div class="field">
+                <label for="email">Email Address</label>
+                <input id="email" type="email" name="email" autocomplete="email" required />
+              </div>
+
+              <div class="field">
+                <label for="phone">Phone Number</label>
+                <input id="phone" type="tel" name="phone" autocomplete="tel" />
+              </div>
+
+              <div class="field">
+                <label for="business">Business Name</label>
+                <input id="business" type="text" name="business" />
+              </div>
+            </div>
+
+            <label for="details">Additional Information</label>
+            <textarea
+              id="details"
+              name="details"
+              placeholder="Tell us about your business, goals, or ideal use case..."
+            ></textarea>
+
+            <button type="submit" class="contact-submit">
+              Submit Form
+            </button>
+          </form>
+        </div>
+      </div>
 
       <a href="index.html" class="back">← Back to Home</a>
     </div>
