@@ -5,6 +5,7 @@
   <title>Contact – Perceptron Labs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+<<<<<<< HEAD
   <style>
     :root {
       --bg: radial-gradient(circle at top left, #111827 0, #050816 45%, #020617 100%);
@@ -153,8 +154,21 @@
       }
     }
   </style>
-</head>
+=======
+  <!-- Google Font -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
 
+  <!-- External stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+>>>>>>> 33c37d3 (split into html and css)
+</head>
+<body class="contact-page">
+  <div class="noise"></div>
+
+<<<<<<< HEAD
 <body>
   <div class="page">
     <div class="container">
@@ -186,5 +200,36 @@
       <a href="index.html" class="back">← Back to Home</a>
     </div>
   </div>
+=======
+  <main class="contact-main">
+    <div class="contact-card">
+      <h1>Contact Us</h1>
+      <p>Fill out the form below and our team will reach out shortly.</p>
+
+      <form action="https://formspree.io/f/your-form-id" method="POST">
+        <label>Your Name</label>
+        <input type="text" name="name" required />
+
+        <label>Email Address</label>
+        <input type="email" name="email" required />
+
+        <label>Phone Number</label>
+        <input type="tel" name="phone" required />
+
+        <label>Business Name</label>
+        <input type="text" name="business" />
+
+        <label>Additional Information</label>
+        <textarea name="details"></textarea>
+
+        <button type="submit" class="contact-submit">
+          Submit Form
+        </button>
+      </form>
+
+      <a href="index.html" class="contact-back">← Back to Home</a>
+    </div>
+  </main>
+>>>>>>> 33c37d3 (split into html and css)
 </body>
 </html>
