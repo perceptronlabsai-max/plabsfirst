@@ -6,13 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Perceptron Labs builds AI phone agents that answer calls, schedule appointments, and qualify leads 24/7." />
 
-  <!-- Google Font -->
+  <!-- Optional Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Link to external stylesheet -->
+  <!-- External stylesheet -->
   <link rel="stylesheet" href="index.css" />
 </head>
-
 <body>
   <div class="noise"></div>
 
@@ -33,18 +32,20 @@
         <a href="#features" class="nav-link">Use cases</a>
         <a href="contact.html" class="nav-link">Contact</a>
         <button class="btn btn-primary">
-          Book a demo <span>↗</span>
+          Book a demo
+          <span>↗</span>
         </button>
       </div>
     </div>
   </header>
 
   <main>
-    <!-- All your existing sections remain exactly the same -->
-    <!-- HERO SECTION -->
     <section class="shell hero">
       <div>
-        <h1 class="hero-title">Turn missed calls into <span>booked customers</span>.</h1>
+        <h1 class="hero-title">
+          Turn missed calls into <span>booked customers</span>.
+        </h1>
+
         <p class="hero-subtitle">
           Perceptron Labs deploys <b>AI voice agents</b> that answer calls,
           qualify leads and schedule appointments <b>24/7</b> so your team never
@@ -52,8 +53,12 @@
         </p>
 
         <div class="hero-cta-row">
-          <button class="btn btn-primary">Get started in 7 days</button>
-          <button class="btn btn-outline">Listen to a sample call</button>
+          <button class="btn btn-primary">
+            Get started in 7 days
+          </button>
+          <button class="btn btn-outline">
+            Listen to a sample call
+          </button>
         </div>
 
         <p class="hero-caption">
@@ -88,11 +93,13 @@
             <div class="wave-card">
               <div class="wave-label-row">
                 <div>
-                  <span>Caller</span><br />
+                  <span>Caller</span>
+                  <br />
                   <b>“New Patient – Dental”</b>
                 </div>
                 <div>
-                  <span>Outcome</span><br />
+                  <span>Outcome</span>
+                  <br />
                   <b>Consult booked · Tue 3:30 PM</b>
                 </div>
               </div>
@@ -112,38 +119,131 @@
             </div>
 
             <div class="stat-row">
-              <div class="stat-chip"><b>+37%</b> Callers converted vs. voicemail.</div>
-              <div class="stat-chip"><b>92%</b> Human satisfaction in blind tests.</div>
+              <div class="stat-chip">
+                <b>+37%</b>
+                Callers converted vs. voicemail-only.
+              </div>
+              <div class="stat-chip">
+                <b>92%</b>
+                Human satisfaction in blind tests.
+              </div>
             </div>
 
             <p class="mini-panel">
               “It feels like talking to a real receptionist. Patients book at
               midnight and on weekends without us lifting a finger.”
-              <br /><small>— Dr. Riley Carter, Midtown Dental Group</small>
+              <br />
+              <small>— Dr. Riley Carter, Midtown Dental Group</small>
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- The rest of your sections stay exactly the same -->
-    <!-- FEATURES, HOW IT WORKS, CONTACT SECTIONS -->
-
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-      <div>© <span id="year"></span> Perceptron Labs. All rights reserved.</div>
-      <div class="footer-links">
-        <a href="#features" class="footer-link">Product</a>
-        <a href="#how" class="footer-link">How it works</a>
-        <a href="contact.html" class="footer-link">Contact</a>
+    <section class="shell section" id="features">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Why teams plug us in</div>
+          <h2 class="section-title">Built for real-world operations.</h2>
+        </div>
+        <p class="section-sub">
+          Designed for practices, agencies and service businesses that live and die
+          by the phones: dental, med-spa, HVAC, law firms and beyond.
+        </p>
       </div>
-    </div>
-  </footer>
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
-</body>
-</html>
+      <div class="grid-3">
+        <article class="card">
+          <div class="card-inner">
+            <div class="card-icon">🎧</div>
+            <h3 class="card-title">Natural, multi-turn conversations</h3>
+            <p class="card-body">
+              Our agents remember context, handle interruptions and clarify details,
+              just like your best receptionist would on their best day.
+            </p>
+            <div class="pill-row">
+              <span class="pill">Overtalk &amp; barge-in support</span>
+              <span class="pill">Dynamic scripts</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-inner">
+            <div class="card-icon">📅</div>
+            <h3 class="card-title">Calendar &amp; CRM integration</h3>
+            <p class="card-body">
+              We slot appointments into your existing calendar and push caller
+              data into your CRM, so your team starts the day with a full schedule.
+            </p>
+            <div class="pill-row">
+              <span class="pill">Google / Outlook / iCal</span>
+              <span class="pill">HubSpot · Pipedrive</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-inner">
+            <div class="card-icon">🛡️</div>
+            <h3 class="card-title">Secure by design</h3>
+            <p class="card-body">
+              Data is encrypted in transit and at rest, with region-locked storage
+              and audit logs available for compliant industries.
+            </p>
+            <div class="pill-row">
+              <span class="pill">Role-based access</span>
+              <span class="pill">Audit trails</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="shell section" id="how">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Onboarded in days</div>
+          <h2 class="section-title">From “idea” to live agent in 3 steps.</h2>
+        </div>
+        <p class="section-sub">
+          No engineering team required. You share how your business runs;
+          we translate that into a production-ready AI receptionist.
+        </p>
+      </div>
+
+      <div class="steps">
+        <div>
+          <ol class="step-list">
+            <li class="step">
+              <div class="step-index">1</div>
+              <div>
+                <div class="step-title">Design your call flows</div>
+                <p class="step-copy">
+                  Together, we map how you want calls handled: new leads, existing
+                  customers, emergencies, wrong numbers and everything in between.
+                </p>
+              </div>
+            </li>
+            <li class="step">
+              <div class="step-index">2</div>
+              <div>
+                <div class="step-title">Connect your tools</div>
+                <p class="step-copy">
+                  We securely connect to your phone provider, calendars and CRM,
+                  so the agent can see availability and log outcomes.
+                </p>
+              </div>
+            </li>
+            <li class="step">
+              <div class="step-index">3</div>
+              <div>
+                <div class="step-title">Go live &amp; iterate</div>
+                <p class="step-copy">
+                  You monitor every conversation in a dashboard, approve responses
+                  and refine behavior with simple toggles, not code.
+                </p>
+              </div>
+            </li>
+          </ol>
+        </div>
