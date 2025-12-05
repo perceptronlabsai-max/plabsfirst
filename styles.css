@@ -226,8 +226,15 @@ main {
 @media (max-width: 880px) {
   .hero {
     grid-template-columns: minmax(0, 1fr);
+    padding-block: 32px 48px;   /* slightly smaller on tablets/phones */
+    min-height: auto;           /* let content determine height on small screens */
+  }
+
+  .section {
+    margin-top: 64px;           /* still some space, but not huge */
   }
 }
+
 
 .eyebrow {
   display: inline-flex;
