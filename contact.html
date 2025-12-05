@@ -5,30 +5,26 @@
   <title>Contact – Perceptron Labs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Google Font -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
+  <!-- Same font as index page -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- External stylesheet -->
+  <!-- Shared site styles -->
   <link rel="stylesheet" href="contact.css" />
-
 </head>
-<body class="contact-page">
-  <div class="noise"></div>
-
 
 <body>
   <div class="page">
-    <div class="container">
+    <div class="contact-container">
       <h1>Contact Us</h1>
       <p class="subtitle">
         Fill out the form below and our team will reach out shortly.
       </p>
 
-      <!-- Replace `your-form-id` with your actual Formspree ID -->
-      <form action="https://formspree.io/f/myzrpjdr" method="POST">
+      <form
+        class="contact-form"
+        action="https://formspree.io/f/myzrpjdr"
+        method="POST"
+      >
         <label for="name">Your Name</label>
         <input id="name" type="text" name="name" autocomplete="name" required />
 
@@ -42,15 +38,19 @@
         <input id="business" type="text" name="business" />
 
         <label for="details">Additional Information</label>
-        <textarea id="details" name="details" placeholder="Tell us about your business, goals, or ideal use case..."></textarea>
+        <textarea
+          id="details"
+          name="details"
+          placeholder="Tell us about your business, goals, or ideal use case..."
+        ></textarea>
 
-        <button type="submit">Submit Form</button>
+        <button type="submit" class="contact-submit">
+          Submit Form
+        </button>
       </form>
 
       <a href="index.html" class="back">← Back to Home</a>
     </div>
   </div>
-
- 
 </body>
 </html>
